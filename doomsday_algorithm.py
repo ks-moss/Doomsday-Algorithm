@@ -143,8 +143,8 @@ class DAY_OF_THE_WEEK(DOOMSDAY_OF_THE_YEAR):
             result = (self.date - doomsday_for_month) % 7 + self.calculated_doomsday
             result %= 7
 
-            return result
-            # return DAYS[result]
+            # return result
+            return DAYS[result]
 
         except ValueError:
             return "Invalid month entered.\n"
@@ -230,21 +230,40 @@ from datetime import datetime
 def main():
 
     start_time = datetime.now()
+    print(f"\nStart time: {start_time.strftime('%H:%M:%S.%f')[:-3]}")
+    print("Calculating...")
 
     # Uncomment one
-    # result = insert_data_by_year([2024, 2025])        
+    result = insert_data_by_year([2024, 2025]) # or [2023],[2024],[2025]  
     # result = insert_data_by_month([2024], "April")
 
 
+    stop_time_procss = datetime.now()
+
+
+    for years in result:
+
+        for printResult in years:
+            date_parts = printResult[0].split(',')
+            month = date_parts[2]
+            year = date_parts[3]
+
+            print("\n","+---",month,"-", year,"---+", "\n")
+
+            for printDates in printResult:
+                print(printDates)
+
     stop_time = datetime.now()
-    print(f"\nStart time: {start_time.strftime('%H:%M:%S.%f')[:-3]}")
-    print(f"Stop time: {stop_time.strftime('%H:%M:%S.%f')[:-3]}\n")
 
-    duration = stop_time - start_time
-    print(f"Duration: {duration}\n")
+    print(f"\nStart time:                               {start_time.strftime('%H:%M:%S.%f')[:-3]}")
+    print(f"Stop time:                                {stop_time_procss.strftime('%H:%M:%S.%f')[:-3]}")
+    print(f"Stop time (excludes calculation process): {stop_time.strftime('%H:%M:%S.%f')[:-3]}\n")
 
-    print(result)
+    durationP = stop_time_procss - start_time
+    totalDuration = stop_time - start_time
 
+    print(f"Duration :                                {durationP}")
+    print(f"Duration (excludes calculation process):  {totalDuration}\n")
 
 
 
