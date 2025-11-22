@@ -99,12 +99,12 @@ class DOOMSDAY_OF_THE_YEAR:
         if self.year % 4 == 0 and (self.year % 100 != 0 or self.year % 400 == 0):
             # Leap year
             DAYS_IN_YEAR[1] = 29
-            PROVIDED_DOOMSDAY[0] = 32
+            PROVIDED_DOOMSDAY[0] = 4
             PROVIDED_DOOMSDAY[1] = 29
         else:
             # Not leap year
             DAYS_IN_YEAR[1] = 28
-            PROVIDED_DOOMSDAY[0] = 31
+            PROVIDED_DOOMSDAY[0] = 3
             PROVIDED_DOOMSDAY[1] = 28
 
 
