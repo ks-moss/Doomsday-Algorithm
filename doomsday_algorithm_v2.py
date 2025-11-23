@@ -178,8 +178,7 @@ def get_data_by_month(year, month):
 def main():
 
     get_data_by_year([9999999999999, 123456])
-    # get_data_by_month(9999, "April")
-
+    get_data_by_month(9999, "April")
 
 
 
