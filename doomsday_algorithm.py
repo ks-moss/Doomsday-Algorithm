@@ -197,25 +197,25 @@ class DAY_OF_THE_WEEK(DOOMSDAY_OF_THE_YEAR):
 
 
 
-def insert_data_by_year(years):
+def get_data_by_year(years):
         
-        years = list(map(int, years))
+    years = list(map(int, years))
 
-        calendar = DAY_OF_THE_WEEK()
-        result = calendar.by_year(years)
+    calendar = DAY_OF_THE_WEEK()
+    result = calendar.by_year(years)
 
-        return result
+    return result
 
 
 # Insert year and month to the constructor
-def insert_data_by_month(year, month):
+def get_data_by_month(year, month):
         
-        years = list(map(int, year))
+    years = list(map(int, year))
 
-        calendar = DAY_OF_THE_WEEK()
-        result = calendar.by_month(years, month)
+    calendar = DAY_OF_THE_WEEK()
+    result = calendar.by_month(years, month)
 
-        return result
+    return result
 
 
 
@@ -230,9 +230,8 @@ def main():
     print("Calculating...")
 
     # Uncomment one
-    result = insert_data_by_year([2024, 1234567]) # or [2023],[2024],[2025]  
-    # result = insert_data_by_month([2024], "April")
-
+    result = get_data_by_year([2024, 1234567]) # or [2023],[2024],[2025]  
+    # result = get_data_by_month([1234567], "December")
 
     stop_time_procss = datetime.now()
 
