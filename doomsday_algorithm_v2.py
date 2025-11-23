@@ -22,7 +22,6 @@ class DOOMSDAY:
         self.date = None
         self.month = None
         self.year = None
-        self.leap_year = False
         self.last_two_digit_of_year = None
         self.century = None
 
