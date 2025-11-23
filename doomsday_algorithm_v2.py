@@ -175,6 +175,7 @@ def get_data_by_month(year, month):
 def main():
 
     get_data_by_year([9999999999999, 1234567])
+    print("\n---------------------------------------------------\n")
     get_data_by_month(1234567, "December")
 
 
