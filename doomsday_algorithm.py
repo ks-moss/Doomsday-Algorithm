@@ -30,10 +30,10 @@ class DOOMSDAY_OF_THE_YEAR:
     def calculate_century_code(self, init_century):
         doomsday_century_temp = init_century
 
-        twoYearAfterCentury = self.year % 100
+        century = (self.year // 100) * 100
 
         while not self.stop_threads.is_set():
-            if doomsday_century_temp == int(str(self.year)[:twoYearAfterCentury]) * (10 ** twoYearAfterCentury):
+            if doomsday_century_temp == century:
                
                 if init_century == INIT_CENTURY[0]: # 1500
                     self.doomsday_century_code = 3
@@ -73,7 +73,7 @@ class DOOMSDAY_OF_THE_YEAR:
     # This functiopn will calculate for the doomsday of that year (Jan.-Dec.)
     def calculate_doomsday_year(self):
 
-        twoYearAfterCentury = self.year % 100
+        last_two_digit_of_year = self.year % 100
 
         # get_century_code is threading function
         # calculate_century_code is the real function of getting the century code
@@ -82,7 +82,7 @@ class DOOMSDAY_OF_THE_YEAR:
         if century_code is None:
             raise ValueError("Century code calculation failed.")
 
-        total_number = century_code + twoYearAfterCentury // 12 + twoYearAfterCentury % 12 + (twoYearAfterCentury % 12) // 4
+        total_number = century_code + last_two_digit_of_year // 12 + last_two_digit_of_year % 12 + (last_two_digit_of_year % 12) // 4
 
         while total_number > 6:
             total_number %= 7
@@ -230,7 +230,7 @@ def main():
     print("Calculating...")
 
     # Uncomment one
-    result = insert_data_by_year([123456, 2025]) # or [2023],[2024],[2025]  
+    result = insert_data_by_year([2024, 1234567]) # or [2023],[2024],[2025]  
     # result = insert_data_by_month([2024], "April")
 
 
