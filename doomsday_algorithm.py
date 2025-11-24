@@ -1,6 +1,5 @@
 import threading
 
-
 INIT_CENTURY = [1500, 1600, 1700, 1800]
 
 DAYS_IN_YEAR = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -14,8 +13,6 @@ MONTHS = [
 ]
 
 DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-
 
 
 class DOOMSDAY_OF_THE_YEAR:

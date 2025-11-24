@@ -162,12 +162,12 @@ def get_data_by_year(years):
 # Insert year and month to the constructor
 def get_data_by_month(year, month):
         
-        calendar = DOOMSDAY()
+    calendar = DOOMSDAY()
 
-        result = calendar.by_month(year, month)
+    result = calendar.by_month(year, month)
 
-        for day in result:
-            print(day)
+    for day in result:
+        print(day)
 
 
 
