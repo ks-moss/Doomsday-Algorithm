@@ -220,7 +220,6 @@ def get_data_by_month(year, month):
 
 
 
-
 from datetime import datetime
 
 def main():
