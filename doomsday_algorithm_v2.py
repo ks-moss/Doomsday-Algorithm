@@ -1,5 +1,4 @@
 import os
-import datetime
 
 INIT_CENTURY = [1500, 1600, 1700, 1800]
 
