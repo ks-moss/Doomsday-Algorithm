@@ -25,12 +25,14 @@ class DOOMSDAY:
         self.century = None
 
 
-    def set_data(self, date, month, year):
+    def set_data(self, date, month):
         self.date = date
         self.month = month
+
+    def is_leap_year(self, year):
+
         self.year = year
 
-    def is_leap_year(self):
         if self.year % 4 == 0 and (self.year % 100 != 0 or self.year % 400 == 0):
             # Leap year
             DAYS_IN_YEAR[1] = 29
@@ -87,7 +89,6 @@ class DOOMSDAY:
         
     def get_day_of_the_week(self):
 
-        self.is_leap_year()
         century_code = self.get_century_code()
         calculated_doomsday = self.calculate_doomsday(century_code)
 
@@ -105,10 +106,12 @@ class DOOMSDAY:
         for year in years:
 
             for month in MONTHS[MONTHS.index(start_month):]:
+
+                self.is_leap_year(year)
        
                 for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
 
-                    self.set_data(day, month, year)
+                    self.set_data(day, month)
                     temp.append(f"{self.get_day_of_the_week()},{day},{month},{year}")
                   
                 temp_month.append(temp)
@@ -124,9 +127,11 @@ class DOOMSDAY:
         return_value =[]
         start_date = 1 # Start from day 1
 
+        self.is_leap_year(year)
+
         for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
 
-            self.set_data(day, month, year)
+            self.set_data(day, month)
             return_value.append(f"{self.get_day_of_the_week()},{day},{month},{year}")
 
 
@@ -173,9 +178,9 @@ def get_data_by_month(year, month):
 
 def main():
 
-    get_data_by_year([9999999999999, 1234567])
+    get_data_by_year([9999999999999, 2025])
     print("\n---------------------------------------------------\n")
-    get_data_by_month(1234567, "December")
+    get_data_by_month(2024, "February")
 
 
 
