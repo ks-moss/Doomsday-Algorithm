@@ -105,9 +105,9 @@ class DOOMSDAY:
 
         for year in years:
 
-            for month in MONTHS[MONTHS.index(start_month):]:
+            self.is_leap_year(year)
 
-                self.is_leap_year(year)
+            for month in MONTHS[MONTHS.index(start_month):]:
        
                 for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
 
