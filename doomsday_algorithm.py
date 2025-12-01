@@ -1,18 +1,18 @@
 import threading
 
-INIT_CENTURY = [1500, 1600, 1700, 1800]
+DOOMSDAY_BY_MONTH = [3, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12]
 
-DAYS_IN_YEAR = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+DOOMSDAY_BY_CENTURY = [1500, 1600, 1700, 1800]
 
-PROVIDED_DOOMSDAY = [3, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12]
+DAYS_PER_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-MONTHS = [
+MONTH_NAMES = [
     "January", "February", "March", "April",
     "May", "June", "July", "August",
     "September", "October", "November", "December"
 ]
 
-DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
 class DOOMSDAY_OF_THE_YEAR:
@@ -32,13 +32,13 @@ class DOOMSDAY_OF_THE_YEAR:
         while not self.stop_threads.is_set():
             if doomsday_century_temp == century:
                
-                if init_century == INIT_CENTURY[0]: # 1500
+                if init_century == DOOMSDAY_BY_CENTURY[0]: # 1500
                     self.doomsday_century_code = 3
-                elif init_century == INIT_CENTURY[1]: # 1600
+                elif init_century == DOOMSDAY_BY_CENTURY[1]: # 1600
                     self.doomsday_century_code = 2
-                elif init_century == INIT_CENTURY[2]: #1700
+                elif init_century == DOOMSDAY_BY_CENTURY[2]: #1700
                     self.doomsday_century_code = 0
-                elif init_century == INIT_CENTURY[3]: # 1800
+                elif init_century == DOOMSDAY_BY_CENTURY[3]: # 1800
                     self.doomsday_century_code = 5
                 else:
                     self.doomsday_century_code = None
@@ -53,7 +53,7 @@ class DOOMSDAY_OF_THE_YEAR:
         
         threads = []
 
-        for init_century in INIT_CENTURY:
+        for init_century in DOOMSDAY_BY_CENTURY:
             thread = threading.Thread(
                 target=self.calculate_century_code,
                 args=(init_century,)  # Pass args as a tuple
@@ -91,14 +91,14 @@ class DOOMSDAY_OF_THE_YEAR:
 
         if self.year % 4 == 0 and (self.year % 100 != 0 or self.year % 400 == 0):
             # Leap year
-            DAYS_IN_YEAR[1] = 29
-            PROVIDED_DOOMSDAY[0] = 4
-            PROVIDED_DOOMSDAY[1] = 29
+            DAYS_PER_MONTH[1] = 29
+            DOOMSDAY_BY_MONTH[0] = 4
+            DOOMSDAY_BY_MONTH[1] = 29
         else:
             # Not leap year
-            DAYS_IN_YEAR[1] = 28
-            PROVIDED_DOOMSDAY[0] = 3
-            PROVIDED_DOOMSDAY[1] = 28
+            DAYS_PER_MONTH[1] = 28
+            DOOMSDAY_BY_MONTH[0] = 3
+            DOOMSDAY_BY_MONTH[1] = 28
 
 
 
@@ -131,13 +131,13 @@ class DAY_OF_THE_WEEK(DOOMSDAY_OF_THE_YEAR):
     def calculate_day_of_the_week(self):
 
         try:
-            doomsday_for_month = PROVIDED_DOOMSDAY[MONTHS.index(self.month)]
+            doomsday_for_month = DOOMSDAY_BY_MONTH[MONTH_NAMES.index(self.month)]
 
             result = (self.date - doomsday_for_month) % 7 + self.calculated_doomsday
             result %= 7
 
             # return result
-            return DAYS[result]
+            return WEEKDAY_NAMES[result]
 
         except ValueError:
             return "Invalid month entered.\n"
@@ -156,10 +156,10 @@ class DAY_OF_THE_WEEK(DOOMSDAY_OF_THE_YEAR):
 
             self.set_year(year)
 
-            for month in MONTHS[MONTHS.index(month):]:
+            for month in MONTH_NAMES[MONTH_NAMES.index(month):]:
        
 
-                for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
+                for day in range(start_date, DAYS_PER_MONTH[MONTH_NAMES.index(month)] + 1):
 
                     self.set_date(month, day)
                     temp.append(f"{self.calculate_day_of_the_week()},{day},{month},{year}")
@@ -180,7 +180,7 @@ class DAY_OF_THE_WEEK(DOOMSDAY_OF_THE_YEAR):
 
         self.set_year(year[0])
 
-        for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
+        for day in range(start_date, DAYS_PER_MONTH[MONTH_NAMES.index(month)] + 1):
 
             self.set_date(month, day)
             return_value.append(f"{self.calculate_day_of_the_week()},{day},{month},{year[0]}")
@@ -226,7 +226,7 @@ def main():
     print("Calculating...")
 
     # Uncomment one
-    result = get_data_by_year([2024, 1234567]) # or [2023],[2024],[2025]  
+    result = get_data_by_year([2024, 2025]) # or [2023],[2024],[2025]  
     # result = get_data_by_month([1234567], "December")
 
     stop_time_procss = datetime.now()

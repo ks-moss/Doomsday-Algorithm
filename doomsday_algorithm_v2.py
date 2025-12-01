@@ -1,18 +1,18 @@
 import os
 
-INIT_CENTURY = [1500, 1600, 1700, 1800]
+DOOMSDAY_BY_MONTH = [3, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12]
 
-PROVIDED_DOOMSDAY = [3, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12]
+DOOMSDAY_BY_CENTURY = [1500, 1600, 1700, 1800]
 
-MONTHS = [
+DAYS_PER_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+MONTH_NAMES = [
     "January", "February", "March", "April",
     "May", "June", "July", "August",
     "September", "October", "November", "December"
 ]
 
-DAYS_IN_YEAR = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
 class DOOMSDAY:
@@ -35,14 +35,14 @@ class DOOMSDAY:
 
         if self.year % 4 == 0 and (self.year % 100 != 0 or self.year % 400 == 0):
             # Leap year
-            DAYS_IN_YEAR[1] = 29
-            PROVIDED_DOOMSDAY[0] = 4
-            PROVIDED_DOOMSDAY[1] = 29
+            DAYS_PER_MONTH[1] = 29
+            DOOMSDAY_BY_MONTH[0] = 4
+            DOOMSDAY_BY_MONTH[1] = 29
         else:
             # Not leap year
-            DAYS_IN_YEAR[1] = 28
-            PROVIDED_DOOMSDAY[0] = 3
-            PROVIDED_DOOMSDAY[1] = 28
+            DAYS_PER_MONTH[1] = 28
+            DOOMSDAY_BY_MONTH[0] = 3
+            DOOMSDAY_BY_MONTH[1] = 28
 
     def get_century_code(self):
 
@@ -76,13 +76,13 @@ class DOOMSDAY:
     def calculate_day_of_the_week(self, calculated_doomsday):
 
         try:
-            doomsday_for_month = PROVIDED_DOOMSDAY[MONTHS.index(self.month)]
+            doomsday_for_month = DOOMSDAY_BY_MONTH[MONTH_NAMES.index(self.month)]
 
             result = (self.date - doomsday_for_month) % 7 + calculated_doomsday
             result %= 7
 
             # return result
-            return DAYS[result]
+            return WEEKDAY_NAMES[result]
 
         except ValueError:
             return "Invalid month entered.\n"
@@ -107,9 +107,9 @@ class DOOMSDAY:
 
             self.is_leap_year(year)
 
-            for month in MONTHS[MONTHS.index(start_month):]:
+            for month in MONTH_NAMES[MONTH_NAMES.index(start_month):]:
        
-                for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
+                for day in range(start_date, DAYS_PER_MONTH[MONTH_NAMES.index(month)] + 1):
 
                     self.set_data(day, month)
                     temp.append(f"{self.get_day_of_the_week()},{day},{month},{year}")
@@ -129,7 +129,7 @@ class DOOMSDAY:
 
         self.is_leap_year(year)
 
-        for day in range(start_date, DAYS_IN_YEAR[MONTHS.index(month)] + 1):
+        for day in range(start_date, DAYS_PER_MONTH[MONTH_NAMES.index(month)] + 1):
 
             self.set_data(day, month)
             return_value.append(f"{self.get_day_of_the_week()},{day},{month},{year}")
